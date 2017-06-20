@@ -29,6 +29,7 @@ require_once ("connect_db.php");
                             $query->bindParam(3, $team, PDO::PARAM_INT);
                             if ($query->execute()) {
                                 echo "Player added";
+                                header('Location: http://localhost:8080/pokus/index.php');
                             } else {
                                 echo "Player was not added";
                             }
@@ -80,6 +81,7 @@ require_once ("connect_db.php");
                     <input type="text" name="name" required="required" class="form-control" placeholder="Players name..." id="name">
                     <span class="input-group-btn">
                         <button type="submit" name="submit" class="btn btn-defalut">Submit</button>
+                        
                     </span>
                     
                 </div>
