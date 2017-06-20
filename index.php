@@ -19,7 +19,7 @@ require_once ("connect_db.php");
                     <?php
                     foreach($conn->query("SELECT * FROM teams") as $row) {
                         echo '<li class="list-group-item"><a href="teams.php?id=' . $row["id"] . '">' .
-                                $row["name"] . "</a>"."</li>";
+                                $row["name"] . "</a><a class='btn btn-default pull-right nwm' href='edit_team.php?id=".$row["id"]."'>Edit</a><a class='btn btn-default pull-right nwm' style='margin-right:5px;' href='delete_team.php?id=".$row["id"]."'>Delete</a>"."</li>";
                     }
                     ?>
                     </ul>
