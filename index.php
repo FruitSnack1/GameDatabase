@@ -22,6 +22,9 @@ require_once ("connect_db.php");
                                 $row["name"] . "</a><a class='btn btn-default pull-right nwm' href='edit_team.php?id=".$row["id"]."'>Edit</a><a class='btn btn-default pull-right nwm' style='margin-right:5px;' href='delete_team.php?id=".$row["id"]."'>Delete</a>"."</li>";
                     }
                     ?>
+                        <li class="list-group-item">
+                            <a class="btn btn-primary" href="add_team.php">Add team</a>
+                        </li>
                     </ul>
             </div>
         

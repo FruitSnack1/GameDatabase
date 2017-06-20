@@ -18,59 +18,42 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
             <h1>Edit Team <?php
             $query = $conn->prepare("SELECT name FROM teams WHERE id=$id");
             $query->execute();
-            $name = $query->fetch();
-            echo $name["name"];
+            $dotaz = $query->fetch();
+            echo $dotaz["name"];
         ?></h1>
 
-
+            <form method="POST">
             <div class="input-group col-lg-5" style="padding-top:5px">
                 <input type="text" name="name" required="required" class="form-control" placeholder="Team name..." id="name">
                 <span class="input-group-btn">
                     <button type="submit" name="submit" class="btn btn-defalut">Submit</button>
                 </span>
             </div>
+            </form>
         </div>
     </body>
-</html>
+
 <?php
+if (isset($_POST["name"])) {
+    if (strlen($_POST["name"]) < 3) {
+        echo '<div class="alert alert-danger" role="alert">';
+        echo '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>';
+        echo '<span class="sr-only">Error:</span>';
+        echo 'Name must be longer than 3 letters';
+        echo '</div>';
+    } else {
+        $name2 = filter_var($_POST["name"], FILTER_SANITIZE_STRING);
+        $query = $conn->prepare("UPDATE teams SET ". " name = ? WHERE id = ?");
+        $query->bindParam(1, $name2, PDO::PARAM_STR);
+        $query->bindParam(2, $id, PDO::PARAM_INT);
+        
+        if ($query->execute()) {
+            echo "Team edited";
+            header('Location: http://localhost:8080/pokus/index.php');
+        } 
+    }
+}
 
-//
-//if (isset($_POST["nazev"])) {
-//    if (strlen($_POST["nazev"]) < 3) {
-//        echo "Název trafiky musí být delší než 3 znaky.";
-//    } else {
-//        $nazev = filter_var($_POST["nazev"], FILTER_SANITIZE_STRING);
-//        if ($id == NULL) {
-//            $query = $conn->prepare("INSERT INTO trafiky VALUES (NULL, ?)");
-//            $query->bindParam(1, $nazev, PDO::PARAM_STR);
-//        } else {
-//            $query = $conn->prepare("UPDATE trafiky SET "
-//                    . " nazev = ? WHERE id = ?");
-//            $query->bindParam(1, $nazev, PDO::PARAM_STR);
-//            $query->bindParam(2, $id, PDO::PARAM_INT);
-//        }
-//        if ($query->execute()) {
-//            echo "Pridano";
-//        } else {
-//            echo "Nepridano";
-//        }
-//    }
-//}
-//if ($id != NULL) {
-//    $query = $conn->prepare("SELECT * FROM trafiky WHERE id=?");
-//    $query->bindParam(1, $id, PDO::PARAM_INT);
-//    $query->execute();
-//    $trafika = $query->fetch();
-//    if ($trafika) {
-//        echo "Upravuješ trafiku - " . $trafika["nazev"] . "<br>";
-//    } else {
-//        die("Tahle trafika neexistuje");
-//    }
-//}
-//
+
 ?>
-
-
-
-<?php 
-
+</html>

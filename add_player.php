@@ -34,13 +34,25 @@ require_once ("connect_db.php");
                                 echo "Player was not added";
                             }
                         } else {
-                            echo 'class error';
+                            echo '<div class="alert alert-danger" role="alert">';
+                            echo '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>';
+                            echo '<span class="sr-only">Error:</span>';
+                            echo 'Team error';
+                            echo '</div>';
                         }
                     } else {
-                        echo 'team error';
+                        echo '<div class="alert alert-danger" role="alert">';
+                        echo '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>';
+                        echo '<span class="sr-only">Error:</span>';
+                        echo 'Class error';
+                        echo '</div>';
                     }
                 } else {
-                    echo 'name error';
+                    echo '<div class="alert alert-danger" role="alert">';
+                    echo '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>';
+                    echo '<span class="sr-only">Error:</span>';
+                    echo 'Name must be longer than 3 letters';
+                    echo '</div>';
                 }
             }
             $query = $conn->prepare("SELECT * FROM teams");
@@ -88,6 +100,7 @@ require_once ("connect_db.php");
                 </div>
             </form>
         </div>
+        
         <script src="jquery-3.2.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="bootstrap-select.js" type="text/javascript"></script>
